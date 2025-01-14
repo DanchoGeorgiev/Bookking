@@ -1,0 +1,14 @@
+/Users/danchogeorgiev/RiderProjects/Bookking/Bookking/bin/Debug/net8.0/Bookking
+/Users/danchogeorgiev/RiderProjects/Bookking/Bookking/bin/Debug/net8.0/Bookking.deps.json
+/Users/danchogeorgiev/RiderProjects/Bookking/Bookking/bin/Debug/net8.0/Bookking.runtimeconfig.json
+/Users/danchogeorgiev/RiderProjects/Bookking/Bookking/bin/Debug/net8.0/Bookking.dll
+/Users/danchogeorgiev/RiderProjects/Bookking/Bookking/bin/Debug/net8.0/Bookking.pdb
+/Users/danchogeorgiev/RiderProjects/Bookking/Bookking/obj/Debug/net8.0/Bookking.GeneratedMSBuildEditorConfig.editorconfig
+/Users/danchogeorgiev/RiderProjects/Bookking/Bookking/obj/Debug/net8.0/Bookking.AssemblyInfoInputs.cache
+/Users/danchogeorgiev/RiderProjects/Bookking/Bookking/obj/Debug/net8.0/Bookking.AssemblyInfo.cs
+/Users/danchogeorgiev/RiderProjects/Bookking/Bookking/obj/Debug/net8.0/Bookking.csproj.CoreCompileInputs.cache
+/Users/danchogeorgiev/RiderProjects/Bookking/Bookking/obj/Debug/net8.0/Bookking.dll
+/Users/danchogeorgiev/RiderProjects/Bookking/Bookking/obj/Debug/net8.0/refint/Bookking.dll
+/Users/danchogeorgiev/RiderProjects/Bookking/Bookking/obj/Debug/net8.0/Bookking.pdb
+/Users/danchogeorgiev/RiderProjects/Bookking/Bookking/obj/Debug/net8.0/Bookking.genruntimeconfig.cache
+/Users/danchogeorgiev/RiderProjects/Bookking/Bookking/obj/Debug/net8.0/ref/Bookking.dll
