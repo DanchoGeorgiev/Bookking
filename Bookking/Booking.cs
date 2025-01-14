@@ -5,9 +5,11 @@ public class Booking
     BookingTypes bookingType;
     private string bookingName;
     int bookingId;
-    private int bookingTime;
+    Dates bookingDate;
     Customer bookingOwner;
+    private int capacity;
     bool booked = false;
+    
 
     public BookingTypes BookingType
     {
@@ -27,10 +29,10 @@ public class Booking
         set => bookingId = value;
     }
 
-    public int BookingTime
+    public Dates BookingDate
     {
-        get => bookingTime;
-        set => bookingTime = value;
+        get => bookingDate;
+        set => bookingDate = value;
     }
 
     public Customer BookingOwner
@@ -39,12 +41,19 @@ public class Booking
         set => bookingOwner = value ?? throw new ArgumentNullException(nameof(value));
     }
 
-    public Booking(BookingTypes bookingType, string bookingName = default, int bookingId = default, int bookingTime = default, Customer bookingOwner = null)
+    public int Capacity
+    {
+        get => capacity;
+        set => capacity = value;
+    }
+    
+    public Booking(BookingTypes bookingType = default, string bookingName = default, int bookingId = default, Dates bookingDate = null, int capacity = default, Customer bookingOwner = null)
     {
         this.BookingType = bookingType;
         this.BookingName = bookingName;
         this.BookingId = bookingId;
-        this.BookingTime = bookingTime;
+        this.BookingDate = bookingDate;
+        this.Capacity = capacity;
         this.BookingOwner = bookingOwner;
     }
 }
