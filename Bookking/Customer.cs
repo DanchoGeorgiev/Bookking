@@ -9,13 +9,13 @@ public class Customer
     public string FirstName
     {
         get => firstName;
-        set => firstName = value ?? throw new ArgumentNullException(nameof(value));
+        set => firstName = value;
     }
 
     public string LastName
     {
         get => lastName;
-        set => lastName = value ?? throw new ArgumentNullException(nameof(value));
+        set => lastName = value;
     }
 
     public int Telephone
@@ -29,5 +29,25 @@ public class Customer
         this.FirstName = firstName;
         this.LastName = lastName;
         this.Telephone = telephone;
+    }
+
+    public void setFirstName(string firstName)
+    {
+        this.FirstName = firstName;
+    }
+
+    public void setLastName(string lastName)
+    {
+        this.LastName = lastName;
+    }
+
+    public void setTelephone(int telephone)
+    {
+        this.Telephone = telephone;
+    }
+
+    public override string ToString()
+    {
+        return "Customer Details:" + "\nFirstname: " + FirstName + "\nLastname: " + LastName + "\nTelephone: " + Telephone;
     }
 }
