@@ -344,6 +344,7 @@ class Program
                                 date.setMonth(month);
                                 Console.WriteLine("==========================================================");
                                 Console.Write("Set a starting day of the booking: ");
+                                
                                 int startDay;
 
                                 while (true)
@@ -461,9 +462,16 @@ class Program
                                     }
                                 }
                                 date.setEndDate(endDay);
-                                break;
+                                Console.WriteLine($"Dates are: {date.Month}, sd{date.StartDate}, ed{date.EndDate}");
+                                if (BookingMethods.bookOffer(offerID, customer, date))
+                                {
+                                    Console.WriteLine("Offer is booked on these days");
+                                }
+                                else
+                                {
+                                    break;
+                                }
                             }
-                            BookingMethods.bookOffer(offerID, customer, date);
                             Console.WriteLine("========================================================");
                             Console.WriteLine("You have successfully booked an offer!");
                             Console.WriteLine("Press any key to continue...");
@@ -1244,9 +1252,16 @@ class Program
                                     }
                                 }
                                 date.setEndDate(endDay);
-                                break;
+
+                                if (BookingMethods.bookOffer(offerID, newCustomer, date)) 
+                                {
+                                    Console.WriteLine("Offer is booked on these days!");
+                                }
+                                else
+                                {
+                                    break;
+                                }
                             }
-                            BookingMethods.bookOffer(offerID, newCustomer, date);
                             Console.WriteLine("========================================================");
                             Console.WriteLine("You have successfully booked an offer!");
                             Console.WriteLine("Press any key to continue...");

@@ -70,18 +70,18 @@ public class Dates
         return datesMonth;
     }
 
-    public void setStartDate(int startDate)
+    public void setStartDate(int startDate1)
     {
-        this.StartDate = startDate;
+        this.StartDate = startDate1;
     }
 
-    public void setEndDate(int endDate)
+    public void setEndDate(int endDate1)
     {
-        this.EndDate = endDate;
+        this.EndDate = endDate1;
     }
 
-    public void setMonth(int month)
+    public void setMonth(int month1)
     {
-        this.Month = month;
+        this.Month = month1;
     }
 }

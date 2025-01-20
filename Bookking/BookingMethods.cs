@@ -37,7 +37,56 @@ public class BookingMethods
         }
     }
 
-    public static void bookOffer(int bookingId, Customer customer, Dates dates) // TODO нещо не е наред тук
+    public static bool areDatesAvailable(Dates date, Dates date1)
+    {
+        int start1 = date.checkStartDate();
+        int end1 = date.checkEndDate();
+        int start2 = date1.checkStartDate();
+        int end2 = date1.checkEndDate();
+
+        if (date.Month == date1.Month)
+        {
+            Console.WriteLine($"Dates of first {date.Month} sd {start1} ed {end1}. Date of second {date1.Month} sd {start2} ed {end2}.");
+            if (start1 < start2 && end2 < end1 && end2 > start2 && end1 > start1)
+            {
+                return true;
+            }
+            else if (start2 < start1 && end2 < end1 && start1 < end2 && end2 > start2 && end1 > start1)
+            {
+                return true;
+            }
+            else if (start1 < start2 && end1 < end2 && end1 > start2 && end2 > start2 && end1 > start1)
+            {
+                return true;
+            }
+            else if (start2 < start1 && end1 < end2 && end2 > start2 && end1 > start1) //
+            {
+                return true;
+            }
+            else if (start1 == start2 && end1 == end2 && end1 > start1 && end2 > start2) //
+            {
+                return true;
+            }
+            else if (start1 < start2 && end1 < end2 && end2 > start2 && end1 < start2 && end2 > start2 &&
+                     end1 > start1) //
+            {
+                return false;
+            }
+            else if (start1 > start2 && end1 > end2 && start1 > end2 && start1 < end1 && end2 > start2) //
+            {
+                return false;
+            }
+            
+        }
+        else
+        {
+            Console.WriteLine("Dates were checked");
+            return false;
+        }
+        return default;
+    }
+    
+    public static bool bookOffer(int bookingId, Customer customer, Dates dates) // TODO нещо не е наред тук
     {
         Booking booking = createBooking1(bookingId);
         booking.setBookingDates(dates);
@@ -46,57 +95,36 @@ public class BookingMethods
         {
             if (bookingsHotelsBooked.Count == 0)
             {
+                //TODO
                 bookingsHotelsBooked.Add(booking);
+                return false;
             }
             else
             {
                 foreach (Booking bookingHotel in bookingsHotelsBooked)
                 {
-                    if (bookingHotel.BookingId == booking.BookingId &&
-                        bookingHotel.BookingDate.Month == booking.BookingDate.Month && bookingHotel.Capacity > 0)
+                    if (bookingHotel.BookingId == booking.BookingId && bookingHotel.Capacity > 0)
                     {
-                        int start1 = booking.BookingDate.checkStartDate();
-                        int end1 = booking.BookingDate.checkEndDate();
-                        int start2 = bookingHotel.BookingDate.checkStartDate();
-                        int end2 = bookingHotel.BookingDate.checkEndDate();
-
-                        if (start1 < start2 && end2 < end1 && end2 > start2 && end1 > start1)
+                        if (areDatesAvailable(booking.BookingDate, bookingHotel.BookingDate))
                         {
-                            Console.WriteLine("Room is booked on these days");
+                            Console.WriteLine($"The month has been set to {booking.BookingDate.Month}");
+                            return true;
                         }
-                        else if (start2 < start1 && end2 < end1 && end2 > start2 && end1 > start1)
-                        {
-                            Console.WriteLine("Room is booked on these days");
-                        }
-                        else if (start1 < start2 && end1 < end2 && end2 > start2 && end1 > start1)
-                        {
-                            Console.WriteLine("Room is booked on these days");
-                        }
-                        else if (start2 < start1 && end1 < end2 && end2 > start2 && end1 > start1)
-                        {
-                            Console.WriteLine("Room is booked on these days");
-                        }
-                        else if (start1 == start2 && end1 == end2 && end1 > start1 && end2 > start2)
-                        {
-                            Console.WriteLine("Room is booked on these days");
-                        }
-                        else if (start1 < start2 && end1 < end2 && end2 > start2 && end1 < start2)
+                        else
                         {
                             booking.Capacity -= 1;
                             bookingsHotelsBooked.Add(booking);
-                        }
-                        else if (start1 > start2 && end1 > end2 && start1 < end1 && end2 > start2)
-                        {
-                            booking.Capacity -= 1;
-                            bookingsHotelsBooked.Add(booking);
+                            Console.WriteLine("Booking hotel capacity: " + booking.Capacity);
+                            return false;
                         }
                     }
-                    else if (bookingHotel.BookingId == booking.BookingId &&
-                             bookingHotel.BookingDate.Month != booking.BookingDate.Month && bookingHotel.Capacity > 0)
+                    /*else if (bookingHotel.BookingId == booking.BookingId && bookingHotel.Capacity > 0)
                     {
                         booking.Capacity -= 1;
                         bookingsHotelsBooked.Add(booking);
-                    }
+                        Console.WriteLine("Booking hotel capacity: " + booking.Capacity);
+                        return false;
+                    }*/
                 }
             }
         }
@@ -260,16 +288,18 @@ public class BookingMethods
                 }
             }
         }
+
+        return default;
     }
     
     public static Booking createBooking1(int bookingId)
     {
-        Booking booking1 = new Booking();
+        
         foreach (Booking booking in bookingsHotels)
         {
             if (booking.BookingId == bookingId)
             {
-                booking1 = booking;
+                return booking;
             }
         }
 
@@ -277,7 +307,7 @@ public class BookingMethods
         {
             if (booking.BookingId == bookingId)
             {
-                booking1 = booking;
+                return booking;
             }
         }
 
@@ -285,7 +315,7 @@ public class BookingMethods
         {
             if (booking.BookingId == bookingId)
             {
-                booking1 = booking;
+                return booking;
             }
         }
 
@@ -293,14 +323,10 @@ public class BookingMethods
         {
             if (booking.BookingId == bookingId)
             {
-                booking1 = booking;
-            }
-            else
-            {
-                Console.WriteLine("ID  number doesn't exist");
+                return booking;
             }
         }
-        return booking1;
+        return null;
     }
 
     public static void removeBookingHotelsBooked(int phoneNumber, int bookingId)

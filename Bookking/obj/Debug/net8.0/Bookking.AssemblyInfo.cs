@@ -13,7 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("Bookking")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+c6a8bd377ae78b14158b45134ae3aa116fecd2ac")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+48e01f5c19a41fbc249cc1811c543d8b6dce987a")]
 [assembly: System.Reflection.AssemblyProductAttribute("Bookking")]
 [assembly: System.Reflection.AssemblyTitleAttribute("Bookking")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]
