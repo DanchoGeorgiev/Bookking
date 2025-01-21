@@ -232,12 +232,17 @@ class Program
                         while (true)
                         {
                             phoneNumber = int.Parse(Console.ReadLine());
-                            Customer buff = new Customer();
-                            foreach (Customer customer1 in BookingMethods.listOfCustomers)
+                            bool isPhoneNumberValid = true;
+                            foreach (Customer customer69 in BookingMethods.listOfCustomers)
                             {
-                                buff = customer1;
+                                if (customer69.Telephone == phoneNumber)
+                                {
+                                    isPhoneNumberValid = true;
+                                    break;
+                                }
                             }
-                            if (phoneNumber == buff.Telephone)
+
+                            if (isPhoneNumberValid)
                             {
                                 break;
                             }
@@ -290,21 +295,25 @@ class Program
 
                         if (choiceCustomer1 == 1)
                         {
-                            Console.WriteLine("============================================================");
+                            Console.WriteLine("=====================================================================");
                             Console.WriteLine("Here is a list of currently available hotel offers: ");
                             BookingMethods.listOfFreeHotels();
-                            Console.WriteLine("============================================================");
+                            Console.WriteLine("=====================================================================");
                             Console.Write("To choose an offer, please enter the offer's ID: ");
                             int offerID;
                             while (true)
                             {
                                 offerID = int.Parse(Console.ReadLine());
-                                Booking buff = new Booking();
-                                foreach (Booking booking in BookingMethods.bookingsHotels)
+                                bool isIDValid = true;
+                                foreach (Booking booking69 in BookingMethods.bookingsHotels)
                                 {
-                                    buff = booking;
+                                    if (offerID == booking69.BookingId)
+                                    {
+                                        isIDValid = true;
+                                        break;
+                                    }
                                 }
-                                if (buff.BookingId == offerID)
+                                if (isIDValid)
                                 {
                                     break;
                                 }
@@ -313,16 +322,16 @@ class Program
                                     Console.WriteLine("Please enter a valid offer's ID");
                                     Console.WriteLine("Press any key to continue...");
                                     Console.ReadLine();
-                                    Console.WriteLine("============================================================");
+                                    Console.WriteLine("=====================================================================");
                                     BookingMethods.listOfFreeHotels();
-                                    Console.WriteLine("============================================================");
+                                    Console.WriteLine("=====================================================================");
                                     Console.Write("To choose an offer, please enter the offer's ID: ");
                                 }
                             }
-                            Dates date  = new Dates();
+                            Dates date1  = new Dates();
                             while (true)
                             {
-                                Console.WriteLine("==========================================================");
+                                Console.WriteLine("=====================================================================");
                                 Console.Write("Set a month of the booking: ");
                                 int month;
                                 while (true)
@@ -337,12 +346,12 @@ class Program
                                         Console.WriteLine("Please enter a valid month");
                                         Console.WriteLine("Press any key to continue...");
                                         Console.ReadLine();
-                                        Console.WriteLine("==========================================================");
+                                        Console.WriteLine("=====================================================================");
                                         Console.Write("Set a month of the booking: ");
                                     }
                                 }
-                                date.setMonth(month);
-                                Console.WriteLine("==========================================================");
+                                date1.setMonth(month);
+                                Console.WriteLine("=====================================================================");
                                 Console.Write("Set a starting day of the booking: ");
                                 
                                 int startDay;
@@ -362,7 +371,7 @@ class Program
                                             Console.WriteLine("Please enter a valid starting day");
                                             Console.WriteLine("Press any key to continue...");
                                             Console.ReadLine();
-                                            Console.WriteLine("==========================================================");
+                                            Console.WriteLine("=====================================================================");
                                             Console.Write("Set a starting day of the booking: ");
                                         }
                                     }
@@ -378,7 +387,7 @@ class Program
                                             Console.WriteLine("Please enter a valid starting day");
                                             Console.WriteLine("Press any key to continue...");
                                             Console.ReadLine();
-                                            Console.WriteLine("==========================================================");
+                                            Console.WriteLine("=====================================================================");
                                             Console.Write("Set a starting day of the booking: ");
                                         }
                                     }
@@ -394,15 +403,14 @@ class Program
                                             Console.WriteLine("Please enter a valid starting day");
                                             Console.WriteLine("Press any key to continue...");
                                             Console.ReadLine();
-                                            Console.WriteLine(
-                                                "==========================================================");
+                                            Console.WriteLine("=====================================================================");
                                             Console.Write("Set a starting day of the booking: ");
                                         }
                                     }
                                 }
-                                date.setStartDate(startDay);
+                                date1.setStartDate(startDay);
                                 
-                                Console.WriteLine("=======================================================");
+                                Console.WriteLine("=====================================================================");
                                 Console.Write("Set a ending day of the booking: ");
                                 int endDay;
 
@@ -422,7 +430,7 @@ class Program
                                             Console.WriteLine("Please enter a valid ending day");
                                             Console.WriteLine("Press any key to continue...");
                                             Console.ReadLine();
-                                            Console.WriteLine("==========================================================");
+                                            Console.WriteLine("=====================================================================");
                                             Console.Write("Set an ending day of the booking: ");
                                         }
                                     }
@@ -439,7 +447,7 @@ class Program
                                             Console.WriteLine("Please enter a valid ending day");
                                             Console.WriteLine("Press any key to continue...");
                                             Console.ReadLine();
-                                            Console.WriteLine("==========================================================");
+                                            Console.WriteLine("=====================================================================");
                                             Console.Write("Set an ending day of the booking: ");
                                         }
                                     }
@@ -456,13 +464,203 @@ class Program
                                             Console.WriteLine("Please enter a valid ending day");
                                             Console.WriteLine("Press any key to continue...");
                                             Console.ReadLine();
-                                            Console.WriteLine("==========================================================");
+                                            Console.WriteLine("=====================================================================");
+                                            Console.Write("Set an ending day of the booking: ");
+                                        }
+                                    }
+                                }
+                                date1.setEndDate(endDay);
+                                if (BookingMethods.bookOffer(offerID, customer, date1))
+                                {
+                                    Console.WriteLine("Offer is booked on these days");
+                                }
+                                else
+                                {
+                                    break;
+                                }
+                            }
+                            Console.WriteLine("=====================================================================");
+                            Console.WriteLine("You have successfully booked an offer!");
+                            Console.WriteLine("Press any key to continue...");
+                            Console.ReadLine();
+                            break;
+                        }
+                        else if (choiceCustomer1 == 2)
+                        {
+                            Console.WriteLine("=====================================================================");
+                            Console.WriteLine("Here is a list of currently available restaurant offers: ");
+                            BookingMethods.listOfFreeRestaurants();
+                            Console.WriteLine("=====================================================================");
+                            Console.Write("To choose an offer, please enter the offer's ID: ");
+                            int offerID;
+                            while (true)
+                            {
+                                offerID = int.Parse(Console.ReadLine());
+                                bool isIDValid = true;
+                                foreach (Booking booking69 in BookingMethods.bookingsRestaurants)
+                                {
+                                    if (offerID == booking69.BookingId)
+                                    {
+                                        isIDValid = true;
+                                        break;
+                                    }
+                                }
+                                if (isIDValid)
+                                {
+                                    break;
+                                }
+                                else
+                                {
+                                    Console.WriteLine("Please enter a valid offer's ID");
+                                    Console.WriteLine("Press any key to continue...");
+                                    Console.ReadLine();
+                                    Console.WriteLine("=====================================================================");
+                                    BookingMethods.listOfFreeRestaurants();
+                                    Console.WriteLine("=====================================================================");
+                                    Console.Write("To choose an offer, please enter the offer's ID: ");
+                                }
+                            }
+                            Dates date  = new Dates();
+                            while (true)
+                            {
+                                Console.WriteLine("=====================================================================");
+                                Console.Write("Set a month of the booking: ");
+                                int month;
+                                while (true)
+                                {
+                                    month = int.Parse(Console.ReadLine());
+                                    if (month >= 1 && month <= 12)
+                                    {
+                                        break;
+                                    }
+                                    else
+                                    {
+                                        Console.WriteLine("Please enter a valid month");
+                                        Console.WriteLine("Press any key to continue...");
+                                        Console.ReadLine();
+                                        Console.WriteLine("=====================================================================");
+                                        Console.Write("Set a month of the booking: ");
+                                    }
+                                }
+                                date.setMonth(month);
+                                Console.WriteLine("=====================================================================");
+                                Console.Write("Set a starting day of the booking: ");
+                                int startDay;
+
+                                while (true)
+                                {
+                                    startDay = int.Parse(Console.ReadLine());
+                                    if (month == 1 || month == 3 || month == 5 || month == 7 || month == 8 ||
+                                        month == 10 || month == 12)
+                                    {
+                                        if (startDay >= 1 && startDay <= 31)
+                                        {
+                                            break;
+                                        }
+                                        else
+                                        {
+                                            Console.WriteLine("Please enter a valid starting day");
+                                            Console.WriteLine("Press any key to continue...");
+                                            Console.ReadLine();
+                                            Console.WriteLine("=====================================================================");
+                                            Console.Write("Set a starting day of the booking: ");
+                                        }
+                                    }
+                                    
+                                    else if(month == 4 || month == 6 || month == 9 || month == 11)
+                                    {
+                                        if (startDay >= 1 && startDay <= 30)
+                                        {
+                                            break;
+                                        }
+                                        else
+                                        {
+                                            Console.WriteLine("Please enter a valid starting day");
+                                            Console.WriteLine("Press any key to continue...");
+                                            Console.ReadLine();
+                                            Console.WriteLine("=====================================================================");
+                                            Console.Write("Set a starting day of the booking: ");
+                                        }
+                                    }
+                                    
+                                    else if (month == 2)
+                                    {
+                                        if (startDay >= 1 && startDay <= 28)
+                                        {
+                                            break;
+                                        }
+                                        else
+                                        {
+                                            Console.WriteLine("Please enter a valid starting day");
+                                            Console.WriteLine("Press any key to continue...");
+                                            Console.ReadLine();
+                                            Console.WriteLine("=====================================================================");
+                                            Console.Write("Set a starting day of the booking: ");
+                                        }
+                                    }
+                                }
+                                date.setStartDate(startDay);
+                                
+                                Console.WriteLine("=====================================================================");
+                                Console.Write("Set a ending day of the booking: ");
+                                int endDay;
+
+                                while (true)
+                                {
+                                    endDay = int.Parse(Console.ReadLine());
+                                    if (month == 1 || month == 3 || month == 5 || month == 7 || month == 8 ||
+                                        month == 10 || month == 12)
+                                    {
+                                        if (endDay >= 1 && endDay <= 31 && endDay >= startDay)
+                                        {
+                                            break;
+                                        }
+                                        else
+                                        {
+                                            Console.WriteLine("Ending day cannot be lower than the starting day");
+                                            Console.WriteLine("Please enter a valid ending day");
+                                            Console.WriteLine("Press any key to continue...");
+                                            Console.ReadLine();
+                                            Console.WriteLine("=====================================================================");
+                                            Console.Write("Set an ending day of the booking: ");
+                                        }
+                                    }
+                                    
+                                    else if(month == 4 || month == 6 || month == 9 || month == 11)
+                                    {
+                                        if (endDay >= 1 && endDay <= 30 && endDay >= startDay)
+                                        {
+                                            break;
+                                        }
+                                        else
+                                        {
+                                            Console.WriteLine("Ending day cannot be lower than the starting day");
+                                            Console.WriteLine("Please enter a valid ending day");
+                                            Console.WriteLine("Press any key to continue...");
+                                            Console.ReadLine();
+                                            Console.WriteLine("=====================================================================");
+                                            Console.Write("Set an ending day of the booking: ");
+                                        }
+                                    }
+                                    
+                                    else if (month == 2)
+                                    {
+                                        if (endDay >= 1 && endDay <= 28 && endDay >= startDay)
+                                        {
+                                            break;
+                                        }
+                                        else
+                                        {
+                                            Console.WriteLine("Ending day cannot be lower than the starting day");
+                                            Console.WriteLine("Please enter a valid ending day");
+                                            Console.WriteLine("Press any key to continue...");
+                                            Console.ReadLine();
+                                            Console.WriteLine("=====================================================================");
                                             Console.Write("Set an ending day of the booking: ");
                                         }
                                     }
                                 }
                                 date.setEndDate(endDay);
-                                Console.WriteLine($"Dates are: {date.Month}, sd{date.StartDate}, ed{date.EndDate}");
                                 if (BookingMethods.bookOffer(offerID, customer, date))
                                 {
                                     Console.WriteLine("Offer is booked on these days");
@@ -472,189 +670,7 @@ class Program
                                     break;
                                 }
                             }
-                            Console.WriteLine("========================================================");
-                            Console.WriteLine("You have successfully booked an offer!");
-                            Console.WriteLine("Press any key to continue...");
-                            Console.ReadLine();
-                            break;
-                        }
-                        else if (choiceCustomer1 == 2)
-                        {
-                            Console.WriteLine("============================================================");
-                            Console.WriteLine("Here is a list of currently available restaurant offers: ");
-                            BookingMethods.listOfFreeRestaurants();
-                            Console.WriteLine("============================================================");
-                            Console.Write("To choose an offer, please enter the offer's ID: ");
-                            int offerID;
-                            while (true)
-                            {
-                                offerID = int.Parse(Console.ReadLine());
-                                Booking buff = new Booking();
-                                foreach (Booking booking in BookingMethods.bookingsRestaurants)
-                                {
-                                    buff = booking;
-                                }
-                                if (buff.BookingId == offerID)
-                                {
-                                    break;
-                                }
-                                else
-                                {
-                                    Console.WriteLine("Please enter a valid offer's ID");
-                                    Console.WriteLine("Press any key to continue...");
-                                    Console.ReadLine();
-                                    Console.WriteLine("============================================================");
-                                    BookingMethods.listOfFreeRestaurants();
-                                    Console.WriteLine("============================================================");
-                                    Console.Write("To choose an offer, please enter the offer's ID: ");
-                                }
-                            }
-                            Dates date  = new Dates();
-                            while (true)
-                            {
-                                Console.WriteLine("==========================================================");
-                                Console.Write("Set a month of the booking: ");
-                                int month;
-                                while (true)
-                                {
-                                    month = int.Parse(Console.ReadLine());
-                                    if (month >= 1 && month <= 12)
-                                    {
-                                        break;
-                                    }
-                                    else
-                                    {
-                                        Console.WriteLine("Please enter a valid month");
-                                        Console.WriteLine("Press any key to continue...");
-                                        Console.ReadLine();
-                                        Console.WriteLine("==========================================================");
-                                        Console.Write("Set a month of the booking: ");
-                                    }
-                                }
-                                date.setMonth(month);
-                                Console.WriteLine("==========================================================");
-                                Console.Write("Set a starting day of the booking: ");
-                                int startDay;
-
-                                while (true)
-                                {
-                                    startDay = int.Parse(Console.ReadLine());
-                                    if (month == 1 || month == 3 || month == 5 || month == 7 || month == 8 ||
-                                        month == 10 || month == 12)
-                                    {
-                                        if (startDay >= 1 && startDay <= 31)
-                                        {
-                                            break;
-                                        }
-                                        else
-                                        {
-                                            Console.WriteLine("Please enter a valid starting day");
-                                            Console.WriteLine("Press any key to continue...");
-                                            Console.ReadLine();
-                                            Console.WriteLine("==========================================================");
-                                            Console.Write("Set a starting day of the booking: ");
-                                        }
-                                    }
-                                    
-                                    else if(month == 4 || month == 6 || month == 9 || month == 11)
-                                    {
-                                        if (startDay >= 1 && startDay <= 30)
-                                        {
-                                            break;
-                                        }
-                                        else
-                                        {
-                                            Console.WriteLine("Please enter a valid starting day");
-                                            Console.WriteLine("Press any key to continue...");
-                                            Console.ReadLine();
-                                            Console.WriteLine("==========================================================");
-                                            Console.Write("Set a starting day of the booking: ");
-                                        }
-                                    }
-                                    
-                                    else if (month == 2)
-                                    {
-                                        if (startDay >= 1 && startDay <= 28)
-                                        {
-                                            break;
-                                        }
-                                        else
-                                        {
-                                            Console.WriteLine("Please enter a valid starting day");
-                                            Console.WriteLine("Press any key to continue...");
-                                            Console.ReadLine();
-                                            Console.WriteLine(
-                                                "==========================================================");
-                                            Console.Write("Set a starting day of the booking: ");
-                                        }
-                                    }
-                                }
-                                date.setStartDate(startDay);
-                                
-                                Console.WriteLine("=======================================================");
-                                Console.Write("Set a ending day of the booking: ");
-                                int endDay;
-
-                                while (true)
-                                {
-                                    endDay = int.Parse(Console.ReadLine());
-                                    if (month == 1 || month == 3 || month == 5 || month == 7 || month == 8 ||
-                                        month == 10 || month == 12)
-                                    {
-                                        if (endDay >= 1 && endDay <= 31 && endDay >= startDay)
-                                        {
-                                            break;
-                                        }
-                                        else
-                                        {
-                                            Console.WriteLine("Ending day cannot be lower than the starting day");
-                                            Console.WriteLine("Please enter a valid ending day");
-                                            Console.WriteLine("Press any key to continue...");
-                                            Console.ReadLine();
-                                            Console.WriteLine("==========================================================");
-                                            Console.Write("Set an ending day of the booking: ");
-                                        }
-                                    }
-                                    
-                                    else if(month == 4 || month == 6 || month == 9 || month == 11)
-                                    {
-                                        if (endDay >= 1 && endDay <= 30 && endDay >= startDay)
-                                        {
-                                            break;
-                                        }
-                                        else
-                                        {
-                                            Console.WriteLine("Ending day cannot be lower than the starting day");
-                                            Console.WriteLine("Please enter a valid ending day");
-                                            Console.WriteLine("Press any key to continue...");
-                                            Console.ReadLine();
-                                            Console.WriteLine("==========================================================");
-                                            Console.Write("Set an ending day of the booking: ");
-                                        }
-                                    }
-                                    
-                                    else if (month == 2)
-                                    {
-                                        if (endDay >= 1 && endDay <= 28 && endDay >= startDay)
-                                        {
-                                            break;
-                                        }
-                                        else
-                                        {
-                                            Console.WriteLine("Ending day cannot be lower than the starting day");
-                                            Console.WriteLine("Please enter a valid ending day");
-                                            Console.WriteLine("Press any key to continue...");
-                                            Console.ReadLine();
-                                            Console.WriteLine("==========================================================");
-                                            Console.Write("Set an ending day of the booking: ");
-                                        }
-                                    }
-                                }
-                                date.setEndDate(endDay);
-                                break;
-                            }
-                            BookingMethods.bookOffer(offerID, customer, date);
-                            Console.WriteLine("========================================================");
+                            Console.WriteLine("=====================================================================");
                             Console.WriteLine("You have successfully booked an offer!");
                             Console.WriteLine("Press any key to continue...");
                             Console.ReadLine();
@@ -662,21 +678,26 @@ class Program
                         }
                         else if (choiceCustomer1 == 3)
                         {
-                            Console.WriteLine("============================================================");
+                            Console.WriteLine("=====================================================================");
                             Console.WriteLine("Here is a list of currently available service offers: ");
                             BookingMethods.listOfFreeServices();
-                            Console.WriteLine("============================================================");
+                            Console.WriteLine("=====================================================================");
                             Console.Write("To choose an offer, please enter the offer's ID: ");
                             int offerID;
                             while (true)
                             {
                                 offerID = int.Parse(Console.ReadLine());
-                                Booking buff = new Booking();
-                                foreach (Booking booking in BookingMethods.bookingsServices)
+                                bool isIDValid = true;
+                                foreach (Booking booking69 in BookingMethods.bookingsServices)
                                 {
-                                    buff = booking;
+                                    if (offerID == booking69.BookingId)
+                                    {
+                                        isIDValid = true;
+                                        break;
+                                    }
                                 }
-                                if (buff.BookingId == offerID)
+                                
+                                if (isIDValid)
                                 {
                                     break;
                                 }
@@ -685,16 +706,16 @@ class Program
                                     Console.WriteLine("Please enter a valid offer's ID");
                                     Console.WriteLine("Press any key to continue...");
                                     Console.ReadLine();
-                                    Console.WriteLine("============================================================");
-                                    BookingMethods.listOfFreeHotels();
-                                    Console.WriteLine("============================================================");
+                                    Console.WriteLine("=====================================================================");
+                                    BookingMethods.listOfFreeServices();
+                                    Console.WriteLine("=====================================================================");
                                     Console.Write("To choose an offer, please enter the offer's ID: ");
                                 }
                             }
                             Dates date  = new Dates();
                             while (true)
                             {
-                                Console.WriteLine("==========================================================");
+                                Console.WriteLine("=====================================================================");
                                 Console.Write("Set a month of the booking: ");
                                 int month;
                                 while (true)
@@ -709,12 +730,12 @@ class Program
                                         Console.WriteLine("Please enter a valid month");
                                         Console.WriteLine("Press any key to continue...");
                                         Console.ReadLine();
-                                        Console.WriteLine("==========================================================");
+                                        Console.WriteLine("=====================================================================");
                                         Console.Write("Set a month of the booking: ");
                                     }
                                 }
                                 date.setMonth(month);
-                                Console.WriteLine("==========================================================");
+                                Console.WriteLine("=====================================================================");
                                 Console.Write("Set a starting day of the booking: ");
                                 int startDay;
 
@@ -733,7 +754,7 @@ class Program
                                             Console.WriteLine("Please enter a valid starting day");
                                             Console.WriteLine("Press any key to continue...");
                                             Console.ReadLine();
-                                            Console.WriteLine("==========================================================");
+                                            Console.WriteLine("=====================================================================");
                                             Console.Write("Set a starting day of the booking: ");
                                         }
                                     }
@@ -749,7 +770,7 @@ class Program
                                             Console.WriteLine("Please enter a valid starting day");
                                             Console.WriteLine("Press any key to continue...");
                                             Console.ReadLine();
-                                            Console.WriteLine("==========================================================");
+                                            Console.WriteLine("=====================================================================");
                                             Console.Write("Set a starting day of the booking: ");
                                         }
                                     }
@@ -765,15 +786,14 @@ class Program
                                             Console.WriteLine("Please enter a valid starting day");
                                             Console.WriteLine("Press any key to continue...");
                                             Console.ReadLine();
-                                            Console.WriteLine(
-                                                "==========================================================");
+                                            Console.WriteLine("=====================================================================");
                                             Console.Write("Set a starting day of the booking: ");
                                         }
                                     }
                                 }
                                 date.setStartDate(startDay);
                                 
-                                Console.WriteLine("=======================================================");
+                                Console.WriteLine("=====================================================================");
                                 Console.Write("Set a ending day of the booking: ");
                                 int endDay;
 
@@ -793,7 +813,7 @@ class Program
                                             Console.WriteLine("Please enter a valid ending day");
                                             Console.WriteLine("Press any key to continue...");
                                             Console.ReadLine();
-                                            Console.WriteLine("==========================================================");
+                                            Console.WriteLine("=====================================================================");
                                             Console.Write("Set an ending day of the booking: ");
                                         }
                                     }
@@ -810,7 +830,7 @@ class Program
                                             Console.WriteLine("Please enter a valid ending day");
                                             Console.WriteLine("Press any key to continue...");
                                             Console.ReadLine();
-                                            Console.WriteLine("==========================================================");
+                                            Console.WriteLine("=====================================================================");
                                             Console.Write("Set an ending day of the booking: ");
                                         }
                                     }
@@ -827,16 +847,22 @@ class Program
                                             Console.WriteLine("Please enter a valid ending day");
                                             Console.WriteLine("Press any key to continue...");
                                             Console.ReadLine();
-                                            Console.WriteLine("==========================================================");
+                                            Console.WriteLine("=====================================================================");
                                             Console.Write("Set an ending day of the booking: ");
                                         }
                                     }
                                 }
                                 date.setEndDate(endDay);
-                                break;
+                                if (BookingMethods.bookOffer(offerID, customer, date))
+                                {
+                                    Console.WriteLine("Offer is booked on these days");
+                                }
+                                else
+                                {
+                                    break;
+                                }
                             }
-                            BookingMethods.bookOffer(offerID, customer, date);
-                            Console.WriteLine("========================================================");
+                            Console.WriteLine("=====================================================================");
                             Console.WriteLine("You have successfully booked an offer!");
                             Console.WriteLine("Press any key to continue...");
                             Console.ReadLine();
@@ -844,21 +870,25 @@ class Program
                         }
                         else if (choiceCustomer1 == 4)
                         {
-                            Console.WriteLine("============================================================");
+                            Console.WriteLine("=====================================================================");
                             Console.WriteLine("Here is a list of currently available ticket offers: ");
-                            BookingMethods.listOfFreeHotels();
-                            Console.WriteLine("============================================================");
+                            BookingMethods.listOfFreeTickets();
+                            Console.WriteLine("=====================================================================");
                             Console.Write("To choose an offer, please enter the offer's ID: ");
-                            int offerID;
+                            int offerID; // Всичко, което съм инициализирал в даден блок от код си остава в този блок от код и НЕ МОЖЕ да се използва извън него
                             while (true)
                             {
                                 offerID = int.Parse(Console.ReadLine());
-                                Booking buff = new Booking();
-                                foreach (Booking booking in BookingMethods.bookingsTickets)
+                                bool isIDValid = true;
+                                foreach (Booking booking69 in BookingMethods.bookingsTickets)
                                 {
-                                    buff = booking;
+                                    if (offerID == booking69.BookingId)
+                                    {
+                                        isIDValid = true;
+                                        break;
+                                    }
                                 }
-                                if (buff.BookingId == offerID)
+                                if (isIDValid)
                                 {
                                     break;
                                 }
@@ -867,16 +897,16 @@ class Program
                                     Console.WriteLine("Please enter a valid offer's ID");
                                     Console.WriteLine("Press any key to continue...");
                                     Console.ReadLine();
-                                    Console.WriteLine("============================================================");
-                                    BookingMethods.listOfFreeHotels();
-                                    Console.WriteLine("============================================================");
+                                    Console.WriteLine("=====================================================================");
+                                    BookingMethods.listOfFreeTickets();
+                                    Console.WriteLine("=====================================================================");
                                     Console.Write("To choose an offer, please enter the offer's ID: ");
                                 }
                             }
                             Dates date  = new Dates();
                             while (true)
                             {
-                                Console.WriteLine("==========================================================");
+                                Console.WriteLine("=====================================================================");
                                 Console.Write("Set a month of the booking: ");
                                 int month;
                                 while (true)
@@ -891,12 +921,12 @@ class Program
                                         Console.WriteLine("Please enter a valid month");
                                         Console.WriteLine("Press any key to continue...");
                                         Console.ReadLine();
-                                        Console.WriteLine("==========================================================");
+                                        Console.WriteLine("=====================================================================");
                                         Console.Write("Set a month of the booking: ");
                                     }
                                 }
                                 date.setMonth(month);
-                                Console.WriteLine("==========================================================");
+                                Console.WriteLine("=====================================================================");
                                 Console.Write("Set a starting day of the booking: ");
                                 int startDay;
 
@@ -915,7 +945,7 @@ class Program
                                             Console.WriteLine("Please enter a valid starting day");
                                             Console.WriteLine("Press any key to continue...");
                                             Console.ReadLine();
-                                            Console.WriteLine("==========================================================");
+                                            Console.WriteLine("=====================================================================");
                                             Console.Write("Set a starting day of the booking: ");
                                         }
                                     }
@@ -931,7 +961,7 @@ class Program
                                             Console.WriteLine("Please enter a valid starting day");
                                             Console.WriteLine("Press any key to continue...");
                                             Console.ReadLine();
-                                            Console.WriteLine("==========================================================");
+                                            Console.WriteLine("=====================================================================");
                                             Console.Write("Set a starting day of the booking: ");
                                         }
                                     }
@@ -947,14 +977,14 @@ class Program
                                             Console.WriteLine("Please enter a valid starting day");
                                             Console.WriteLine("Press any key to continue...");
                                             Console.ReadLine();
-                                            Console.WriteLine("==========================================================");
+                                            Console.WriteLine("=====================================================================");
                                             Console.Write("Set a starting day of the booking: ");
                                         }
                                     }
                                 }
                                 date.setStartDate(startDay);
                                 
-                                Console.WriteLine("=======================================================");
+                                Console.WriteLine("=====================================================================");
                                 Console.Write("Set a ending day of the booking: ");
                                 int endDay;
 
@@ -974,7 +1004,7 @@ class Program
                                             Console.WriteLine("Please enter a valid ending day");
                                             Console.WriteLine("Press any key to continue...");
                                             Console.ReadLine();
-                                            Console.WriteLine("==========================================================");
+                                            Console.WriteLine("=====================================================================");
                                             Console.Write("Set an ending day of the booking: ");
                                         }
                                     }
@@ -991,7 +1021,7 @@ class Program
                                             Console.WriteLine("Please enter a valid ending day");
                                             Console.WriteLine("Press any key to continue...");
                                             Console.ReadLine();
-                                            Console.WriteLine("==========================================================");
+                                            Console.WriteLine("=====================================================================");
                                             Console.Write("Set an ending day of the booking: ");
                                         }
                                     }
@@ -1008,16 +1038,22 @@ class Program
                                             Console.WriteLine("Please enter a valid ending day");
                                             Console.WriteLine("Press any key to continue...");
                                             Console.ReadLine();
-                                            Console.WriteLine("==========================================================");
+                                            Console.WriteLine("=====================================================================");
                                             Console.Write("Set an ending day of the booking: ");
                                         }
                                     }
                                 }
                                 date.setEndDate(endDay);
-                                break;
+                                if (BookingMethods.bookOffer(offerID, customer, date))
+                                {
+                                    Console.WriteLine("Offer is booked on these days");
+                                }
+                                else
+                                {
+                                    break;
+                                }
                             }
-                            BookingMethods.bookOffer(offerID, customer, date);
-                            Console.WriteLine("========================================================");
+                            Console.WriteLine("=====================================================================");
                             Console.WriteLine("You have successfully booked an offer!");
                             Console.WriteLine("Press any key to continue...");
                             Console.ReadLine();
@@ -1031,7 +1067,7 @@ class Program
                     else if (choiceCustomer == 1)
                     {
                         Customer newCustomer = new Customer();
-                        Console.WriteLine("========================================================");
+                        Console.WriteLine("=====================================================================");
                         Console.WriteLine("Welcome to BookKing!");
                         Console.WriteLine("What is your first name?");
                         string firstName = Console.ReadLine();
@@ -1081,21 +1117,25 @@ class Program
 
                         if (choiceCustomer2 == 1)
                         {
-                            Console.WriteLine("============================================================");
+                            Console.WriteLine("=====================================================================");
                             Console.WriteLine("Here is a list of currently available hotel offers: ");
                             BookingMethods.listOfFreeHotels();
-                            Console.WriteLine("============================================================");
+                            Console.WriteLine("=====================================================================");
                             Console.Write("To choose an offer, please enter the offer's ID: ");
                             int offerID;
                             while (true)
                             {
                                 offerID = int.Parse(Console.ReadLine());
-                                Booking buff = new Booking();
-                                foreach (Booking booking in BookingMethods.bookingsHotels)
+                                bool isIDValid = true;
+                                foreach (Booking booking69 in BookingMethods.bookingsHotels)
                                 {
-                                    buff = booking;
+                                    if (offerID == booking69.BookingId)
+                                    {
+                                        isIDValid = true;
+                                        break;
+                                    }
                                 }
-                                if (buff.BookingId == offerID)
+                                if (isIDValid)
                                 {
                                     break;
                                 }
@@ -1104,16 +1144,16 @@ class Program
                                     Console.WriteLine("Please enter a valid offer's ID");
                                     Console.WriteLine("Press any key to continue...");
                                     Console.ReadLine();
-                                    Console.WriteLine("============================================================");
+                                    Console.WriteLine("=====================================================================");
                                     BookingMethods.listOfFreeHotels();
-                                    Console.WriteLine("============================================================");
+                                    Console.WriteLine("=====================================================================");
                                     Console.Write("To choose an offer, please enter the offer's ID: ");
                                 }
                             }
                             Dates date  = new Dates();
                             while (true)
                             {
-                                Console.WriteLine("==========================================================");
+                                Console.WriteLine("=====================================================================");
                                 Console.Write("Set a month of the booking: ");
                                 int month;
                                 while (true)
@@ -1128,12 +1168,12 @@ class Program
                                         Console.WriteLine("Please enter a valid month");
                                         Console.WriteLine("Press any key to continue...");
                                         Console.ReadLine();
-                                        Console.WriteLine("==========================================================");
+                                        Console.WriteLine("=====================================================================");
                                         Console.Write("Set a month of the booking: ");
                                     }
                                 }
                                 date.setMonth(month);
-                                Console.WriteLine("==========================================================");
+                                Console.WriteLine("=====================================================================");
                                 Console.Write("Set a starting day of the booking: ");
                                 int startDay;
 
@@ -1152,7 +1192,7 @@ class Program
                                             Console.WriteLine("Please enter a valid starting day");
                                             Console.WriteLine("Press any key to continue...");
                                             Console.ReadLine();
-                                            Console.WriteLine("==========================================================");
+                                            Console.WriteLine("=====================================================================");
                                             Console.Write("Set a starting day of the booking: ");
                                         }
                                     }
@@ -1168,7 +1208,7 @@ class Program
                                             Console.WriteLine("Please enter a valid starting day");
                                             Console.WriteLine("Press any key to continue...");
                                             Console.ReadLine();
-                                            Console.WriteLine("==========================================================");
+                                            Console.WriteLine("=====================================================================");
                                             Console.Write("Set a starting day of the booking: ");
                                         }
                                     }
@@ -1184,15 +1224,14 @@ class Program
                                             Console.WriteLine("Please enter a valid starting day");
                                             Console.WriteLine("Press any key to continue...");
                                             Console.ReadLine();
-                                            Console.WriteLine(
-                                                "==========================================================");
+                                            Console.WriteLine("=====================================================================");
                                             Console.Write("Set a starting day of the booking: ");
                                         }
                                     }
                                 }
                                 date.setStartDate(startDay);
                                 
-                                Console.WriteLine("=======================================================");
+                                Console.WriteLine("=====================================================================");
                                 Console.Write("Set a ending day of the booking: ");
                                 int endDay;
 
@@ -1212,7 +1251,7 @@ class Program
                                             Console.WriteLine("Please enter a valid ending day");
                                             Console.WriteLine("Press any key to continue...");
                                             Console.ReadLine();
-                                            Console.WriteLine("==========================================================");
+                                            Console.WriteLine("=====================================================================");
                                             Console.Write("Set an ending day of the booking: ");
                                         }
                                     }
@@ -1229,7 +1268,7 @@ class Program
                                             Console.WriteLine("Please enter a valid ending day");
                                             Console.WriteLine("Press any key to continue...");
                                             Console.ReadLine();
-                                            Console.WriteLine("==========================================================");
+                                            Console.WriteLine("=====================================================================");
                                             Console.Write("Set an ending day of the booking: ");
                                         }
                                     }
@@ -1246,7 +1285,7 @@ class Program
                                             Console.WriteLine("Please enter a valid ending day");
                                             Console.WriteLine("Press any key to continue...");
                                             Console.ReadLine();
-                                            Console.WriteLine("==========================================================");
+                                            Console.WriteLine("=====================================================================");
                                             Console.Write("Set an ending day of the booking: ");
                                         }
                                     }
@@ -1262,7 +1301,7 @@ class Program
                                     break;
                                 }
                             }
-                            Console.WriteLine("========================================================");
+                            Console.WriteLine("=====================================================================");
                             Console.WriteLine("You have successfully booked an offer!");
                             Console.WriteLine("Press any key to continue...");
                             Console.ReadLine();
@@ -1270,21 +1309,25 @@ class Program
                         }
                         else if (choiceCustomer2 == 2)
                         {
-                            Console.WriteLine("============================================================");
+                            Console.WriteLine("=====================================================================");
                             Console.WriteLine("Here is a list of currently available restaurant offers: ");
                             BookingMethods.listOfFreeRestaurants();
-                            Console.WriteLine("============================================================");
+                            Console.WriteLine("=====================================================================");
                             Console.Write("To choose an offer, please enter the offer's ID: ");
                             int offerID;
                             while (true)
                             {
                                 offerID = int.Parse(Console.ReadLine());
-                                Booking buff = new Booking();
-                                foreach (Booking booking in BookingMethods.bookingsRestaurants)
+                                bool isIDValid = true;
+                                foreach (Booking booking69 in BookingMethods.bookingsRestaurants)
                                 {
-                                    buff = booking;
+                                    if (offerID == booking69.BookingId)
+                                    {
+                                        isIDValid = true;
+                                        break;
+                                    }
                                 }
-                                if (buff.BookingId == offerID)
+                                if (isIDValid)
                                 {
                                     break;
                                 }
@@ -1293,16 +1336,16 @@ class Program
                                     Console.WriteLine("Please enter a valid offer's ID");
                                     Console.WriteLine("Press any key to continue...");
                                     Console.ReadLine();
-                                    Console.WriteLine("============================================================");
+                                    Console.WriteLine("=====================================================================");
                                     BookingMethods.listOfFreeRestaurants();
-                                    Console.WriteLine("============================================================");
+                                    Console.WriteLine("=====================================================================");
                                     Console.Write("To choose an offer, please enter the offer's ID: ");
                                 }
                             }
                             Dates date  = new Dates();
                             while (true)
                             {
-                                Console.WriteLine("==========================================================");
+                                Console.WriteLine("=====================================================================");
                                 Console.Write("Set a month of the booking: ");
                                 int month;
                                 while (true)
@@ -1317,12 +1360,12 @@ class Program
                                         Console.WriteLine("Please enter a valid month");
                                         Console.WriteLine("Press any key to continue...");
                                         Console.ReadLine();
-                                        Console.WriteLine("==========================================================");
+                                        Console.WriteLine("=====================================================================");
                                         Console.Write("Set a month of the booking: ");
                                     }
                                 }
                                 date.setMonth(month);
-                                Console.WriteLine("==========================================================");
+                                Console.WriteLine("=====================================================================");
                                 Console.Write("Set a starting day of the booking: ");
                                 int startDay;
 
@@ -1341,7 +1384,7 @@ class Program
                                             Console.WriteLine("Please enter a valid starting day");
                                             Console.WriteLine("Press any key to continue...");
                                             Console.ReadLine();
-                                            Console.WriteLine("==========================================================");
+                                            Console.WriteLine("=====================================================================");
                                             Console.Write("Set a starting day of the booking: ");
                                         }
                                     }
@@ -1357,7 +1400,7 @@ class Program
                                             Console.WriteLine("Please enter a valid starting day");
                                             Console.WriteLine("Press any key to continue...");
                                             Console.ReadLine();
-                                            Console.WriteLine("==========================================================");
+                                            Console.WriteLine("=====================================================================");
                                             Console.Write("Set a starting day of the booking: ");
                                         }
                                     }
@@ -1373,15 +1416,14 @@ class Program
                                             Console.WriteLine("Please enter a valid starting day");
                                             Console.WriteLine("Press any key to continue...");
                                             Console.ReadLine();
-                                            Console.WriteLine(
-                                                "==========================================================");
+                                            Console.WriteLine("=====================================================================");
                                             Console.Write("Set a starting day of the booking: ");
                                         }
                                     }
                                 }
                                 date.setStartDate(startDay);
                                 
-                                Console.WriteLine("=======================================================");
+                                Console.WriteLine("=====================================================================");
                                 Console.Write("Set a ending day of the booking: ");
                                 int endDay;
 
@@ -1401,7 +1443,7 @@ class Program
                                             Console.WriteLine("Please enter a valid ending day");
                                             Console.WriteLine("Press any key to continue...");
                                             Console.ReadLine();
-                                            Console.WriteLine("==========================================================");
+                                            Console.WriteLine("=====================================================================");
                                             Console.Write("Set an ending day of the booking: ");
                                         }
                                     }
@@ -1418,7 +1460,7 @@ class Program
                                             Console.WriteLine("Please enter a valid ending day");
                                             Console.WriteLine("Press any key to continue...");
                                             Console.ReadLine();
-                                            Console.WriteLine("==========================================================");
+                                            Console.WriteLine("=====================================================================");
                                             Console.Write("Set an ending day of the booking: ");
                                         }
                                     }
@@ -1435,16 +1477,22 @@ class Program
                                             Console.WriteLine("Please enter a valid ending day");
                                             Console.WriteLine("Press any key to continue...");
                                             Console.ReadLine();
-                                            Console.WriteLine("==========================================================");
+                                            Console.WriteLine("=====================================================================");
                                             Console.Write("Set an ending day of the booking: ");
                                         }
                                     }
                                 }
                                 date.setEndDate(endDay);
-                                break;
+                                if (BookingMethods.bookOffer(offerID, newCustomer, date))
+                                {
+                                    Console.WriteLine("Offer is booked on these days");
+                                }
+                                else
+                                {
+                                    break;
+                                }
                             }
-                            BookingMethods.bookOffer(offerID, newCustomer, date);
-                            Console.WriteLine("========================================================");
+                            Console.WriteLine("=====================================================================");
                             Console.WriteLine("You have successfully booked an offer!");
                             Console.WriteLine("Press any key to continue...");
                             Console.ReadLine();
@@ -1452,21 +1500,25 @@ class Program
                         }
                         else if (choiceCustomer2 == 3)
                         {
-                            Console.WriteLine("============================================================");
+                            Console.WriteLine("=====================================================================");
                             Console.WriteLine("Here is a list of currently available service offers: ");
                             BookingMethods.listOfFreeServices();
-                            Console.WriteLine("============================================================");
+                            Console.WriteLine("=====================================================================");
                             Console.Write("To choose an offer, please enter the offer's ID: ");
                             int offerID;
                             while (true)
                             {
                                 offerID = int.Parse(Console.ReadLine());
-                                Booking buff = new Booking();
-                                foreach (Booking booking in BookingMethods.bookingsServices)
+                                bool isIDValid = true;
+                                foreach (Booking booking69 in BookingMethods.bookingsServices)
                                 {
-                                    buff = booking;
+                                    if (offerID == booking69.BookingId)
+                                    {
+                                        isIDValid = true;
+                                        break;
+                                    }
                                 }
-                                if (buff.BookingId == offerID)
+                                if (isIDValid)
                                 {
                                     break;
                                 }
@@ -1475,16 +1527,16 @@ class Program
                                     Console.WriteLine("Please enter a valid offer's ID");
                                     Console.WriteLine("Press any key to continue...");
                                     Console.ReadLine();
-                                    Console.WriteLine("============================================================");
-                                    BookingMethods.listOfFreeHotels();
-                                    Console.WriteLine("============================================================");
+                                    Console.WriteLine("=====================================================================");
+                                    BookingMethods.listOfFreeServices();
+                                    Console.WriteLine("=====================================================================");
                                     Console.Write("To choose an offer, please enter the offer's ID: ");
                                 }
                             }
                             Dates date  = new Dates();
                             while (true)
                             {
-                                Console.WriteLine("==========================================================");
+                                Console.WriteLine("=====================================================================");
                                 Console.Write("Set a month of the booking: ");
                                 int month;
                                 while (true)
@@ -1499,12 +1551,12 @@ class Program
                                         Console.WriteLine("Please enter a valid month");
                                         Console.WriteLine("Press any key to continue...");
                                         Console.ReadLine();
-                                        Console.WriteLine("==========================================================");
+                                        Console.WriteLine("=====================================================================");
                                         Console.Write("Set a month of the booking: ");
                                     }
                                 }
                                 date.setMonth(month);
-                                Console.WriteLine("==========================================================");
+                                Console.WriteLine("=====================================================================");
                                 Console.Write("Set a starting day of the booking: ");
                                 int startDay;
 
@@ -1523,7 +1575,7 @@ class Program
                                             Console.WriteLine("Please enter a valid starting day");
                                             Console.WriteLine("Press any key to continue...");
                                             Console.ReadLine();
-                                            Console.WriteLine("==========================================================");
+                                            Console.WriteLine("=====================================================================");
                                             Console.Write("Set a starting day of the booking: ");
                                         }
                                     }
@@ -1539,7 +1591,7 @@ class Program
                                             Console.WriteLine("Please enter a valid starting day");
                                             Console.WriteLine("Press any key to continue...");
                                             Console.ReadLine();
-                                            Console.WriteLine("==========================================================");
+                                            Console.WriteLine("=====================================================================");
                                             Console.Write("Set a starting day of the booking: ");
                                         }
                                     }
@@ -1555,15 +1607,14 @@ class Program
                                             Console.WriteLine("Please enter a valid starting day");
                                             Console.WriteLine("Press any key to continue...");
                                             Console.ReadLine();
-                                            Console.WriteLine(
-                                                "==========================================================");
+                                            Console.WriteLine("=====================================================================");
                                             Console.Write("Set a starting day of the booking: ");
                                         }
                                     }
                                 }
                                 date.setStartDate(startDay);
                                 
-                                Console.WriteLine("=======================================================");
+                                Console.WriteLine("=====================================================================");
                                 Console.Write("Set a ending day of the booking: ");
                                 int endDay;
 
@@ -1583,7 +1634,7 @@ class Program
                                             Console.WriteLine("Please enter a valid ending day");
                                             Console.WriteLine("Press any key to continue...");
                                             Console.ReadLine();
-                                            Console.WriteLine("==========================================================");
+                                            Console.WriteLine("=====================================================================");
                                             Console.Write("Set an ending day of the booking: ");
                                         }
                                     }
@@ -1600,7 +1651,7 @@ class Program
                                             Console.WriteLine("Please enter a valid ending day");
                                             Console.WriteLine("Press any key to continue...");
                                             Console.ReadLine();
-                                            Console.WriteLine("==========================================================");
+                                            Console.WriteLine("=====================================================================");
                                             Console.Write("Set an ending day of the booking: ");
                                         }
                                     }
@@ -1617,16 +1668,22 @@ class Program
                                             Console.WriteLine("Please enter a valid ending day");
                                             Console.WriteLine("Press any key to continue...");
                                             Console.ReadLine();
-                                            Console.WriteLine("==========================================================");
+                                            Console.WriteLine("=====================================================================");
                                             Console.Write("Set an ending day of the booking: ");
                                         }
                                     }
                                 }
                                 date.setEndDate(endDay);
-                                break;
+                                if (BookingMethods.bookOffer(offerID, newCustomer, date))
+                                {
+                                    Console.WriteLine("Offer is booked on these days");
+                                }
+                                else
+                                {
+                                    break;
+                                }
                             }
-                            BookingMethods.bookOffer(offerID, newCustomer, date);
-                            Console.WriteLine("========================================================");
+                            Console.WriteLine("=====================================================================");
                             Console.WriteLine("You have successfully booked an offer!");
                             Console.WriteLine("Press any key to continue...");
                             Console.ReadLine();
@@ -1634,21 +1691,25 @@ class Program
                         }
                         else if (choiceCustomer2 == 4)
                         {
-                            Console.WriteLine("============================================================");
+                            Console.WriteLine("=====================================================================");
                             Console.WriteLine("Here is a list of currently available ticket offers: ");
-                            BookingMethods.listOfFreeHotels();
-                            Console.WriteLine("============================================================");
+                            BookingMethods.listOfFreeTickets();
+                            Console.WriteLine("=====================================================================");
                             Console.Write("To choose an offer, please enter the offer's ID: ");
                             int offerID;
                             while (true)
                             {
                                 offerID = int.Parse(Console.ReadLine());
-                                Booking buff = new Booking();
-                                foreach (Booking booking in BookingMethods.bookingsTickets)
+                                bool isIDValid = true;
+                                foreach (Booking booking69 in BookingMethods.bookingsTickets)
                                 {
-                                    buff = booking;
+                                    if (offerID == booking69.BookingId)
+                                    {
+                                        isIDValid = true;
+                                        break;
+                                    }
                                 }
-                                if (buff.BookingId == offerID)
+                                if (isIDValid)
                                 {
                                     break;
                                 }
@@ -1657,16 +1718,16 @@ class Program
                                     Console.WriteLine("Please enter a valid offer's ID");
                                     Console.WriteLine("Press any key to continue...");
                                     Console.ReadLine();
-                                    Console.WriteLine("============================================================");
-                                    BookingMethods.listOfFreeHotels();
-                                    Console.WriteLine("============================================================");
+                                    Console.WriteLine("=====================================================================");
+                                    BookingMethods.listOfFreeTickets();
+                                    Console.WriteLine("=====================================================================");
                                     Console.Write("To choose an offer, please enter the offer's ID: ");
                                 }
                             }
                             Dates date  = new Dates();
                             while (true)
                             {
-                                Console.WriteLine("==========================================================");
+                                Console.WriteLine("=====================================================================");
                                 Console.Write("Set a month of the booking: ");
                                 int month;
                                 while (true)
@@ -1681,12 +1742,12 @@ class Program
                                         Console.WriteLine("Please enter a valid month");
                                         Console.WriteLine("Press any key to continue...");
                                         Console.ReadLine();
-                                        Console.WriteLine("==========================================================");
+                                        Console.WriteLine("=====================================================================");
                                         Console.Write("Set a month of the booking: ");
                                     }
                                 }
                                 date.setMonth(month);
-                                Console.WriteLine("==========================================================");
+                                Console.WriteLine("=====================================================================");
                                 Console.Write("Set a starting day of the booking: ");
                                 int startDay;
 
@@ -1705,7 +1766,7 @@ class Program
                                             Console.WriteLine("Please enter a valid starting day");
                                             Console.WriteLine("Press any key to continue...");
                                             Console.ReadLine();
-                                            Console.WriteLine("==========================================================");
+                                            Console.WriteLine("=====================================================================");
                                             Console.Write("Set a starting day of the booking: ");
                                         }
                                     }
@@ -1721,7 +1782,7 @@ class Program
                                             Console.WriteLine("Please enter a valid starting day");
                                             Console.WriteLine("Press any key to continue...");
                                             Console.ReadLine();
-                                            Console.WriteLine("==========================================================");
+                                            Console.WriteLine("=====================================================================");
                                             Console.Write("Set a starting day of the booking: ");
                                         }
                                     }
@@ -1737,14 +1798,14 @@ class Program
                                             Console.WriteLine("Please enter a valid starting day");
                                             Console.WriteLine("Press any key to continue...");
                                             Console.ReadLine();
-                                            Console.WriteLine("==========================================================");
+                                            Console.WriteLine("=====================================================================");
                                             Console.Write("Set a starting day of the booking: ");
                                         }
                                     }
                                 }
                                 date.setStartDate(startDay);
                                 
-                                Console.WriteLine("=======================================================");
+                                Console.WriteLine("=====================================================================");
                                 Console.Write("Set a ending day of the booking: ");
                                 int endDay;
 
@@ -1764,7 +1825,7 @@ class Program
                                             Console.WriteLine("Please enter a valid ending day");
                                             Console.WriteLine("Press any key to continue...");
                                             Console.ReadLine();
-                                            Console.WriteLine("==========================================================");
+                                            Console.WriteLine("=====================================================================");
                                             Console.Write("Set an ending day of the booking: ");
                                         }
                                     }
@@ -1781,7 +1842,7 @@ class Program
                                             Console.WriteLine("Please enter a valid ending day");
                                             Console.WriteLine("Press any key to continue...");
                                             Console.ReadLine();
-                                            Console.WriteLine("==========================================================");
+                                            Console.WriteLine("=====================================================================");
                                             Console.Write("Set an ending day of the booking: ");
                                         }
                                     }
@@ -1798,16 +1859,22 @@ class Program
                                             Console.WriteLine("Please enter a valid ending day");
                                             Console.WriteLine("Press any key to continue...");
                                             Console.ReadLine();
-                                            Console.WriteLine("==========================================================");
+                                            Console.WriteLine("=====================================================================");
                                             Console.Write("Set an ending day of the booking: ");
                                         }
                                     }
                                 }
                                 date.setEndDate(endDay);
-                                break;
+                                if (BookingMethods.bookOffer(offerID, newCustomer, date))
+                                {
+                                    Console.WriteLine("Offer is booked on these days");
+                                }
+                                else
+                                {
+                                    break;
+                                }
                             }
-                            BookingMethods.bookOffer(offerID, newCustomer, date);
-                            Console.WriteLine("========================================================");
+                            Console.WriteLine("=====================================================================");
                             Console.WriteLine("You have successfully booked an offer!");
                             Console.WriteLine("Press any key to continue...");
                             Console.ReadLine();
@@ -1821,9 +1888,68 @@ class Program
                     }
                 }
             }
+            else if (choice == 3)
+            {
+                BookingMethods.listOfFreeHotels();
+                BookingMethods.listOfFreeRestaurants();
+                BookingMethods.listOfFreeServices();
+                BookingMethods.listOfFreeTickets();
+            }
             else if (choice == 4)
             {
                 BookingMethods.currentBookedOffers();
+            }
+            else if (choice == 5)
+            {
+                Console.WriteLine("=====================================================================");
+                Console.Write("Enter the name of the booking you are searching for:");
+                string nameOfBooking;
+                bool doesNameExist = true;
+                while (true)
+                {
+                    nameOfBooking = Console.ReadLine();
+                    if (BookingMethods.goThroughBookings(nameOfBooking))
+                    {
+                        break;
+                    }
+                    else
+                    {
+                        Console.WriteLine("Name doesn't exist!");
+                        Console.WriteLine("Press any key to continue...");
+                        Console.ReadLine();
+                        Console.WriteLine("=====================================================================");
+                        Console.Write("Enter the name of the booking you are searching for:");
+                    }
+                }
+                BookingMethods.searchForAnOffer(nameOfBooking);
+            }
+            else if (choice == 6)
+            {
+                Console.WriteLine("=====================================================================");
+                Console.Write("Enter the name of the booking you are searching for:");
+                int phoneNumber;
+                bool doesNameExist = true;
+                while (true)
+                {
+                    phoneNumber = int.Parse(Console.ReadLine());
+                    if (BookingMethods.goThroughBookedBookings(phoneNumber))
+                    {
+                        break;
+                    }
+                    else
+                    {
+                        Console.WriteLine("Name doesn't exist!");
+                        Console.WriteLine("Press any key to continue...");
+                        Console.ReadLine();
+                        Console.WriteLine("=====================================================================");
+                        Console.Write("Enter the name of the booking you are searching for:");
+                    }
+                }
+                BookingMethods.searchForBookedBookings(phoneNumber);
+            }
+            else if (choice == 7)
+            {
+                BookingMethods.listOfCustomersPrint();
             }
         }
     }

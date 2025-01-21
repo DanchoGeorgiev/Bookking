@@ -137,12 +137,12 @@ public class Booking
 
     public void printBookingDetails1()
     {
-        Console.WriteLine($"Booking Details: \nBooking Name: {BookingName} \nBookingID: {BookingId} \nBooking Price: {BookingPrice}");
+        Console.WriteLine($"Booking Details: \nBooking Name: {BookingName} \nBookingID: {BookingId} \nBooking Price: {BookingPrice} \n+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++");
     }
 
     public void printBookingDetails2()
     {
-        Console.WriteLine($"Booking Details: \nBooking Name: {BookingName} \nBookingID: {BookingId} \nCustomer: {BookingOwner}");
+        Console.WriteLine($"Booking Details: \nBooking Name: {BookingName} \nBookingID: {BookingId} \nCustomer: {BookingOwner} \nDates: from {BookingDate.StartDate} to {BookingDate.EndDate} in month {BookingDate.Month} \nPrice: {BookingPrice} \n+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++");
     }
     
     

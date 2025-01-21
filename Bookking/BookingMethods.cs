@@ -80,7 +80,6 @@ public class BookingMethods
         }
         else
         {
-            Console.WriteLine("Dates were checked");
             return false;
         }
         return default;
@@ -88,203 +87,177 @@ public class BookingMethods
     
     public static bool bookOffer(int bookingId, Customer customer, Dates dates) // TODO нещо не е наред тук
     {
-        Booking booking = createBooking1(bookingId);
-        booking.setBookingDates(dates);
-        booking.setBookingOwner(customer);
-        if (booking.BookingType == BookingTypes.Hotel)
+        Booking booking1 = createBooking1(bookingId); // В C Sharp като създавам по този начин обект, неговата памет си остава с него, затова винаги като трябва да клонирам нещо създавам цялостно нов обект, като сложа параметрите с точка от единия на другия
+        Booking booking2 = new Booking(booking1.BookingType, booking1.BookingName, booking1.BookingId, booking1.BookingPrice, booking1.Capacity, dates, customer);
+        if (booking2.BookingType == BookingTypes.Hotel)
         {
             if (bookingsHotelsBooked.Count == 0)
             {
-                //TODO
-                bookingsHotelsBooked.Add(booking);
+                booking2.Capacity -= 1;
+                bookingsHotelsBooked.Add(booking2);
                 return false;
             }
             else
             {
                 foreach (Booking bookingHotel in bookingsHotelsBooked)
                 {
-                    if (bookingHotel.BookingId == booking.BookingId && bookingHotel.Capacity > 0)
+                    if (bookingHotel.BookingId == booking2.BookingId && 
+                        bookingHotel.BookingDate.Month == booking2.BookingDate.Month)
                     {
-                        if (areDatesAvailable(booking.BookingDate, bookingHotel.BookingDate))
+                        if (areDatesAvailable(booking2.BookingDate, bookingHotel.BookingDate) && bookingHotel.Capacity == 0)
                         {
-                            Console.WriteLine($"The month has been set to {booking.BookingDate.Month}");
                             return true;
                         }
-                        else
+                        else if (bookingHotel.Capacity > 0)
                         {
-                            booking.Capacity -= 1;
-                            bookingsHotelsBooked.Add(booking);
-                            Console.WriteLine("Booking hotel capacity: " + booking.Capacity);
+                            bookingHotel.Capacity -= 1;
+                            booking2.Capacity = bookingHotel.Capacity;
+                            bookingsHotelsBooked.Add(booking2);
                             return false;
                         }
                     }
-                    /*else if (bookingHotel.BookingId == booking.BookingId && bookingHotel.Capacity > 0)
+                    else if (bookingHotel.BookingId == booking2.BookingId && bookingHotel.BookingDate.Month != booking2.BookingDate.Month)
                     {
-                        booking.Capacity -= 1;
-                        bookingsHotelsBooked.Add(booking);
-                        Console.WriteLine("Booking hotel capacity: " + booking.Capacity);
+                        booking2.Capacity -= 1;
+                        bookingsHotelsBooked.Add(booking2);
                         return false;
-                    }*/
+                    }
+                    else if (bookingHotel.BookingId != booking2.BookingId)
+                    {
+                        booking2.Capacity -= 1;
+                        bookingsHotelsBooked.Add(booking2);
+                        return false;
+                    }
                 }
             }
         }
         
-        if (booking.BookingType == BookingTypes.Restaurant)
+        if (booking1.BookingType == BookingTypes.Restaurant)
         {
-            foreach (Booking bookingRestaurant in bookingsRestaurantsBooked)
+            if (bookingsRestaurantsBooked.Count == 0)
             {
-                if (bookingRestaurant.BookingId == booking.BookingId &&
-                    bookingRestaurant.BookingDate.Month == booking.BookingDate.Month && bookingRestaurant.Capacity > 0)
+                booking2.Capacity -= 1;
+                bookingsRestaurantsBooked.Add(booking2);
+                return false;
+            }
+            else
+            {
+                foreach (Booking bookingRestaurant in bookingsRestaurantsBooked)
                 {
-                    int start1 = booking.BookingDate.checkStartDate();
-                    int end1 = booking.BookingDate.checkEndDate();
-                    int start2 = bookingRestaurant.BookingDate.checkStartDate();
-                    int end2 = bookingRestaurant.BookingDate.checkEndDate();
-
-                    if (start1 < start2 && end2 < end1 && end2 > start2 && end1 > start1)
+                    if (bookingRestaurant.BookingId == booking2.BookingId && 
+                        bookingRestaurant.BookingDate.Month == booking2.BookingDate.Month)
                     {
-                        Console.WriteLine("Room is booked on these days");
+                        if (areDatesAvailable(booking2.BookingDate, bookingRestaurant.BookingDate) && bookingRestaurant.Capacity == 0)
+                        {
+                            return true;
+                        }
+                        else if (bookingRestaurant.Capacity > 0)
+                        {
+                            bookingRestaurant.Capacity -= 1;
+                            booking2.Capacity = bookingRestaurant.Capacity;
+                            bookingsRestaurantsBooked.Add(booking2);
+                            
+                            return false;
+                        }
                     }
-                    else if (start2 < start1 && end2 < end1 && end2 > start2 && end1 > start1)
+                    else if (bookingRestaurant.BookingId == booking2.BookingId && bookingRestaurant.BookingDate.Month != booking2.BookingDate.Month)
                     {
-                        Console.WriteLine("Room is booked on these days");
+                        booking2.Capacity -= 1;
+                        bookingsRestaurantsBooked.Add(booking2);
+                        return false;
                     }
-                    else if (start1 < start2 && end1 < end2 && end2 > start2 && end1 > start1)
+                    else if (bookingRestaurant.BookingId != booking2.BookingId)
                     {
-                        Console.WriteLine("Room is booked on these days");
+                        booking2.Capacity -= 1;
+                        bookingsRestaurantsBooked.Add(booking2);
+                        return false;
                     }
-                    else if (start2 < start1 && end1 < end2 && end2 > start2 && end1 > start1)
-                    {
-                        Console.WriteLine("Room is booked on these days");
-                    }
-                    else if (start1 == start2 && end1 == end2 && end1 > start1 && end2 > start2)
-                    {
-                        Console.WriteLine("Room is booked on these days");
-                    }
-                    else if (start1 == start2 && end1 == end2 && end1 > start1 && end2 > start2)
-                    {
-                        Console.WriteLine("Room is booked on these days");
-                    }
-                    else if (start1 < start2 && end1 < end2 && end2 > start2 && end1 < start2)
-                    {
-                        booking.Capacity -= 1;
-                        bookingsRestaurantsBooked.Add(booking);
-                    }
-                    else if(start1 > start2 && end1 > end2 && start1 < end1 && end2 > start2)
-                    {
-                        booking.Capacity -= 1;
-                        bookingsRestaurantsBooked.Add(booking);
-                    }
-                }
-                else if (bookingRestaurant.BookingId == booking.BookingId &&
-                         bookingRestaurant.BookingDate.Month != booking.BookingDate.Month)
-                {
-                    booking.Capacity -= 1;
-                    bookingsHotelsBooked.Add(booking);
                 }
             }
         }
         
-        if (booking.BookingType == BookingTypes.Service)
+        if (booking1.BookingType == BookingTypes.Service)
         {
-            foreach (Booking bookingService in bookingsServicesBooked)
+            if (bookingsServicesBooked.Count == 0)
             {
-                if (bookingService.BookingId == booking.BookingId &&
-                    bookingService.BookingDate.Month == booking.BookingDate.Month && bookingService.Capacity > 0)
+                booking2.Capacity -= 1;
+                bookingsServicesBooked.Add(booking2);
+                return false;
+            }
+            else
+            {
+                foreach (Booking bookingService in bookingsServicesBooked)
                 {
-                    int start1 = booking.BookingDate.checkStartDate();
-                    int end1 = booking.BookingDate.checkEndDate();
-                    int start2 = bookingService.BookingDate.checkStartDate();
-                    int end2 = bookingService.BookingDate.checkEndDate();
-
-                    if (start1 < start2 && end2 < end1 && end2 > start2 && end1 > start1)
+                    if (bookingService.BookingId == booking2.BookingId && 
+                        bookingService.BookingDate.Month == booking2.BookingDate.Month)
                     {
-                        Console.WriteLine("Room is booked on these days");
+                        if (areDatesAvailable(booking2.BookingDate, bookingService.BookingDate) && bookingService.Capacity == 0)
+                        {
+                            return true;
+                        }
+                        else if (bookingService.Capacity > 0)
+                        {
+                            bookingService.Capacity -= 1;
+                            booking2.Capacity = bookingService.Capacity;
+                            bookingsServicesBooked.Add(booking2);
+                            return false;
+                        }
                     }
-                    else if (start2 < start1 && end2 < end1 && end2 > start2 && end1 > start1)
+                    else if (bookingService.BookingId == booking2.BookingId && bookingService.BookingDate.Month != booking2.BookingDate.Month)
                     {
-                        Console.WriteLine("Room is booked on these days");
+                        booking2.Capacity -= 1;
+                        bookingsServicesBooked.Add(booking2);
+                        return false;
                     }
-                    else if (start1 < start2 && end1 < end2 && end2 > start2 && end1 > start1)
+                    else if (bookingService.BookingId != booking2.BookingId)
                     {
-                        Console.WriteLine("Room is booked on these days");
+                        booking2.Capacity -= 1;
+                        bookingsServicesBooked.Add(booking2);
+                        return false;
                     }
-                    else if (start2 < start1 && end1 < end2 && end2 > start2 && end1 > start1)
-                    {
-                        Console.WriteLine("Room is booked on these days");
-                    }
-                    else if (start1 == start2 && end1 == end2 && end1 > start1 && end2 > start2)
-                    {
-                        Console.WriteLine("Room is booked on these days");
-                    }
-                    else if(start1 < start2 && end1 < end2 && end2 > start2 && end1 < start2)
-                    {
-                        booking.Capacity -= 1;
-                        bookingsServicesBooked.Add(booking);
-                    }
-                    else if(start1 > start2 && end1 > end2 && start1 < end1 && end2 > start2)
-                    {
-                        booking.Capacity -= 1;
-                        bookingsServicesBooked.Add(booking);
-                    }
-                }
-                else if (bookingService.BookingId == booking.BookingId &&
-                         bookingService.BookingDate.Month != booking.BookingDate.Month)
-                {
-                    booking.Capacity -= 1;
-                    bookingsServicesBooked.Add(booking);
                 }
             }
         }
         
-        if (booking.BookingType == BookingTypes.Ticket)
+        if (booking1.BookingType == BookingTypes.Ticket)
         {
-            foreach (Booking bookingTicket in bookingsTicketsBooked)
+            if (bookingsTicketsBooked.Count == 0)
             {
-                if (bookingTicket.BookingId == booking.BookingId &&
-                    bookingTicket.BookingDate.Month == booking.BookingDate.Month && bookingTicket.Capacity > 0)
+                booking2.Capacity -= 1;
+                bookingsTicketsBooked.Add(booking2);
+                return false;
+            }
+            else
+            {
+                foreach (Booking bookingTicket in bookingsTicketsBooked)
                 {
-                    int start1 = booking.BookingDate.checkStartDate();
-                    int end1 = booking.BookingDate.checkEndDate();
-                    int start2 = bookingTicket.BookingDate.checkStartDate();
-                    int end2 = bookingTicket.BookingDate.checkEndDate();
-
-                    if (start1 < start2 && end2 < end1 && end2 > start2 && end1 > start1)
+                    if (bookingTicket.BookingId == booking2.BookingId && 
+                        bookingTicket.BookingDate.Month == booking2.BookingDate.Month)
                     {
-                        Console.WriteLine("Room is booked on these days");
+                        if (areDatesAvailable(booking2.BookingDate, bookingTicket.BookingDate) && bookingTicket.Capacity == 0)
+                        {
+                            return true;
+                        }
+                        else if (bookingTicket.Capacity > 0)
+                        {
+                            bookingTicket.Capacity -= 1;
+                            booking2.Capacity = bookingTicket.Capacity;
+                            bookingsTicketsBooked.Add(booking2);
+                            return false;
+                        }
                     }
-                    else if (start2 < start1 && end2 < end1 && end2 > start2 && end1 > start1)
+                    else if (bookingTicket.BookingId == booking2.BookingId && bookingTicket.BookingDate.Month != booking2.BookingDate.Month)
                     {
-                        Console.WriteLine("Room is booked on these days");
+                        booking2.Capacity -= 1;
+                        bookingsTicketsBooked.Add(booking2);
+                        return false;
                     }
-                    else if (start1 < start2 && end1 < end2 && end2 > start2 && end1 > start1)
+                    else if (bookingTicket.BookingId != booking2.BookingId)
                     {
-                        Console.WriteLine("Room is booked on these days");
+                        booking2.Capacity -= 1;
+                        bookingsTicketsBooked.Add(booking2);
+                        return false;
                     }
-                    else if (start2 < start1 && end1 < end2 && end2 > start2 && end1 > start1)
-                    {
-                        Console.WriteLine("Room is booked on these days");
-                    }
-                    else if (start1 == start2 && end1 == end2 && end1 > start1 && end2 > start2)
-                    {
-                        Console.WriteLine("Room is booked on these days");
-                    }
-                    else if(start1 < start2 && end1 < end2 && end2 > start2 && end1 < start2)
-                    {
-                        booking.Capacity -= 1;
-                        bookingsTicketsBooked.Add(booking);
-                    }
-                    else if(start1 > start2 && end1 > end2 && start1 < end1 && end2 > start2)
-                    {
-                        booking.Capacity -= 1;
-                        bookingsTicketsBooked.Add(booking);
-                    }
-                }
-                else if (bookingTicket.BookingId == booking.BookingId &&
-                         bookingTicket.BookingDate.Month != booking.BookingDate.Month)
-                {
-                    booking.Capacity -= 1;
-                    bookingsTicketsBooked.Add(booking);
                 }
             }
         }
@@ -464,46 +437,37 @@ public class BookingMethods
         }
     }
 
-    public static void searchForABookingBookedHotel(int phoneNumber)
+    public static void searchForBookedBookings(int phoneNumber)
     {
-        foreach (Booking booking in bookingsHotels)
+        foreach (Booking hotel in bookingsHotelsBooked)
         {
-            if (booking.BookingOwner.Telephone == phoneNumber)
+            if (hotel.BookingOwner.Telephone == phoneNumber)
             {
-                booking.printBookingDetails1();
+                hotel.printBookingDetails2();
             }
         }
-    }
 
-    public static void searchForABookingBookedRestaurant(int phoneNumber)
-    {
-        foreach (Booking booking in bookingsRestaurants)
+        foreach (Booking restaurant in bookingsRestaurantsBooked)
         {
-            if (booking.BookingOwner.Telephone == phoneNumber)
+            if (restaurant.BookingOwner.Telephone == phoneNumber)
             {
-                booking.printBookingDetails1();
+                restaurant.printBookingDetails2();
             }
         }
-    }
 
-    public static void searchForABookingBookedServices(int phoneNumber)
-    {
-        foreach (Booking booking in bookingsServicesBooked)
+        foreach (Booking service in bookingsServicesBooked)
         {
-            if (booking.BookingOwner.Telephone == phoneNumber)
+            if (service.BookingOwner.Telephone == phoneNumber)
             {
-                booking.printBookingDetails1();
+                service.printBookingDetails2();
             }
         }
-    }
 
-    public static void searchForABookingBookedTickets(int phoneNumber)
-    {
-        foreach (Booking booking in bookingsTicketsBooked)
+        foreach (Booking ticket in bookingsTicketsBooked)
         {
-            if (booking.BookingOwner.Telephone == phoneNumber)
+            if (ticket.BookingOwner.Telephone == phoneNumber)
             {
-                booking.printBookingDetails1();
+                ticket.printBookingDetails2();
             }
         }
     }
@@ -531,35 +495,35 @@ public class BookingMethods
         }
     }
 
-    public static void searchForAnOffer(int bookingId)
+    public static void searchForAnOffer(string offerName)
     {
         foreach (Booking booking in bookingsHotels)
         {
-            if (booking.BookingId == bookingId)
+            if (booking.BookingName == offerName)
             {
                 booking.printBookingDetails1();
             }
         }
 
-        foreach (Booking booking in bookingsRestaurantsBooked)
+        foreach (Booking booking in bookingsRestaurants)
         {
-            if (booking.BookingId == bookingId)
+            if (booking.BookingName == offerName)
             {
                 booking.printBookingDetails1();
             }
         }
 
-        foreach (Booking booking in bookingsServicesBooked)
+        foreach (Booking booking in bookingsServices)
         {
-            if (booking.BookingId == bookingId)
+            if (booking.BookingName == offerName)
             {
                 booking.printBookingDetails1();
             }
         }
 
-        foreach (Booking booking in bookingsTicketsBooked)
+        foreach (Booking booking in bookingsTickets)
         {
-            if (booking.BookingId == bookingId)
+            if (booking.BookingName == offerName)
             {
                 booking.printBookingDetails1();
             }
@@ -582,5 +546,76 @@ public class BookingMethods
         }
         return customer;
     }
-    
+
+    public static bool goThroughBookings(string offerName) //Проверява според иметодали съществува букинга в небукнатите оферти
+    {
+        foreach (Booking hotel in bookingsHotels)
+        {
+            if (hotel.BookingName == offerName)
+            {
+                return true; // Като направя да ден метод с return statement, връща когато види return;
+            }
+        }
+
+        foreach (Booking restaurant in bookingsRestaurants)
+        {
+            if (restaurant.BookingName == offerName)
+            {
+                return true;
+            }
+        }
+
+        foreach (Booking services in bookingsServices)
+        {
+            if (services.BookingName == offerName)
+            {
+                return true;
+            }
+        }
+
+        foreach (Booking ticket in bookingsTickets)
+        {
+            if (ticket.BookingName == offerName)
+            {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    public static bool goThroughBookedBookings(int phoneNumber) // Проверява според телефонни номер на клиента дали даден букинг съществува във вече букнатите оферти
+    {
+        foreach (Booking hotel in bookingsHotelsBooked)
+        {
+            if (hotel.BookingOwner.Telephone == phoneNumber)
+            {
+                return true;
+            }
+        }
+
+        foreach (Booking restaurant in bookingsRestaurantsBooked)
+        {
+            if (restaurant.BookingOwner.Telephone == phoneNumber)
+            {
+                return true;
+            }
+        }
+
+        foreach (Booking services in bookingsServicesBooked)
+        {
+            if (services.BookingOwner.Telephone == phoneNumber)
+            {
+                return true;
+            }
+        }
+
+        foreach (Booking ticket in bookingsTicketsBooked)
+        {
+            if (ticket.BookingOwner.Telephone == phoneNumber)
+            {
+                return true;
+            }
+        }
+        return false;
+    }
 }

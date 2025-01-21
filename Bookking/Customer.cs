@@ -48,6 +48,6 @@ public class Customer
 
     public override string ToString()
     {
-        return "Customer Details:" + "\nFirstname: " + FirstName + "\nLastname: " + LastName + "\nTelephone: " + Telephone;
+        return "\nCustomer Details:" + "\nFirstname: " + FirstName + "\nLastname: " + LastName + "\nTelephone: " + Telephone;
     }
 }
