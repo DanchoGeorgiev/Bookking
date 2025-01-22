@@ -8,7 +8,7 @@ public class Booking
     Dates bookingDate;
     Customer bookingOwner;
     private int capacity;
-    int bookingPrice;
+    double bookingPrice;
     string description;
     
 
@@ -30,7 +30,7 @@ public class Booking
         set => bookingId = value;
     }
 
-    public int BookingPrice
+    public double BookingPrice
     {
         get => bookingPrice;
         set => bookingPrice = value;
@@ -54,7 +54,7 @@ public class Booking
         set => capacity = value;
     }
     
-    public Booking(BookingTypes bookingType = default, string bookingName = default, int bookingId = default, int bookingPrice = 0, int capacity = default, Dates bookingDate = null, Customer bookingOwner = null)
+    public Booking(BookingTypes bookingType = default, string bookingName = default, int bookingId = default, double bookingPrice = 0, int capacity = default, Dates bookingDate = null, Customer bookingOwner = null)
     {
         this.BookingType = bookingType;
         this.BookingName = bookingName;
@@ -115,7 +115,7 @@ public class Booking
         this.BookingId = bookingId;
     }
 
-    public void setBookingPrice(int bookingPrice)
+    public void setBookingPrice(double bookingPrice)
     {
         this.BookingPrice = bookingPrice;
     }

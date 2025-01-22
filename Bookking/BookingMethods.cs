@@ -46,7 +46,6 @@ public class BookingMethods
 
         if (date.Month == date1.Month)
         {
-            Console.WriteLine($"Dates of first {date.Month} sd {start1} ed {end1}. Date of second {date1.Month} sd {start2} ed {end2}.");
             if (start1 < start2 && end2 < end1 && end2 > start2 && end1 > start1)
             {
                 return true;
@@ -67,6 +66,26 @@ public class BookingMethods
             {
                 return true;
             }
+            else if (start1 < start2 && end2 < end1 && end2 < start2 && end1 < start1)////
+            {
+                return true;
+            }
+            else if (start2 < start1 && end2 < end1 && start1 < end2 && end2 < start2 && end1 < start1)
+            {
+                return true;
+            }
+            else if (start1 < start2 && end1 < end2 && end1 > start2 && end2 < start2 && end1 < start1)
+            {
+                return true;
+            }
+            else if (start2 < start1 && end1 < end2 && end2 < start2 && end1 < start1) //
+            {
+                return true;
+            }
+            else if (start1 == start2 && end1 == end2 && end1 < start1 && end2 < start2) //
+            {
+                return true;
+            }
             else if (start1 < start2 && end1 < end2 && end2 > start2 && end1 < start2 && end2 > start2 &&
                      end1 > start1) //
             {
@@ -76,7 +95,15 @@ public class BookingMethods
             {
                 return false;
             }
-            
+            else if (start1 < start2 && end1 < end2 && end2 > start2 && end1 < start2 && end2 < start2 &&
+                     end1 < start1) ////
+            {
+                return false;
+            }
+            else if (start1 > start2 && end1 > end2 && start1 > end2 && start1 > end1 && end2 < start2) //
+            {
+                return false;
+            }
         }
         else
         {
@@ -264,6 +291,132 @@ public class BookingMethods
 
         return default;
     }
+
+    public static bool checkIfIdAvailable(int bookingId)
+    {
+        foreach (Booking hotel in bookingsHotels)
+        {
+            if (hotel.BookingId == bookingId)
+            {
+                return true;
+            }
+        }
+
+        foreach (Booking restaurant in bookingsRestaurants)
+        {
+            if (restaurant.BookingId == bookingId)
+            {
+                return true;
+            }
+        }
+
+        foreach (Booking service in bookingsServices)
+        {
+            if (service.BookingId == bookingId)
+            {
+                return true;
+            }
+        }
+
+        foreach (Booking ticket in bookingsTickets)
+        {
+            if (ticket.BookingId == bookingId)
+            {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    public static bool checkIfCustomerExists(int phoneNumber)
+    {
+        foreach (Customer customer in listOfCustomers)
+        {
+            if (customer.Telephone == phoneNumber)
+            {
+                return true;
+            }
+        }
+        return false;
+    }
+    
+    public static void removeBooking(int ID)
+    {
+        foreach (Booking hotel in bookingsHotels)
+        {
+            if (hotel.BookingId == ID)
+            {
+                bookingsHotels.Remove(hotel);
+                break;
+            }
+        }
+
+        foreach (Booking restaurant in bookingsRestaurants)
+        {
+            if (restaurant.BookingId == ID)
+            {
+                bookingsRestaurants.Remove(restaurant);
+                break;
+            }
+        }
+
+        foreach (Booking service in bookingsServices)
+        {
+            if (service.BookingId == ID)
+            {
+                bookingsServices.Remove(service);
+                break;
+            }
+        }
+
+        foreach (Booking ticket in bookingsTickets)
+        {
+            if (ticket.BookingId == ID)
+            {
+                bookingsTickets.Remove(ticket);
+                break;
+            }
+        }
+    }
+
+    public static void cancelBooking(int bookingId, int startDate, int endDate, int month, int phoneNumber)
+    {
+        foreach (Booking hotel in bookingsHotelsBooked)
+        {
+            if (hotel.BookingId == bookingId && hotel.BookingDate.StartDate == startDate && hotel.BookingDate.EndDate == startDate && hotel.BookingDate.Month == month && hotel.BookingOwner.Telephone == phoneNumber)
+            {
+                bookingsHotelsBooked.Remove(hotel);
+                break;
+            }
+        }
+        
+        /*foreach (Booking restaurant in bookingsRestaurantsBooked)
+        {
+            if (restaurant.BookingId == bookingId && restaurant.BookingDate == date && restaurant.BookingOwner.Telephone == phoneNumber)
+            {
+                bookingsRestaurantsBooked.Remove(restaurant);
+                break;
+            }
+        }
+        
+        foreach (Booking service in bookingsServicesBooked)
+        {
+            if (service.BookingId == bookingId && service.BookingDate == date && service.BookingOwner.Telephone == phoneNumber)
+            {
+                bookingsServicesBooked.Remove(service);
+                break;
+            }
+        }
+        
+        foreach (Booking ticket in bookingsHotelsBooked)
+        {
+            if (ticket.BookingId == bookingId && ticket.BookingDate == date && ticket.BookingOwner.Telephone == phoneNumber)
+            {
+                bookingsTicketsBooked.Remove(ticket);
+                break;
+            }
+        }*/
+    }
     
     public static Booking createBooking1(int bookingId)
     {
@@ -300,66 +453,6 @@ public class BookingMethods
             }
         }
         return null;
-    }
-
-    public static void removeBookingHotelsBooked(int phoneNumber, int bookingId)
-    {
-        foreach (Booking booking in bookingsHotelsBooked)
-        {
-            if (booking.BookingOwner.Telephone == phoneNumber && booking.BookingType == BookingTypes.Hotel && booking.BookingId == bookingId)
-            {
-                bookingsHotelsBooked.Remove(booking);
-            }
-            else
-            {
-                Console.WriteLine("Phone number doesn't exist");
-            }
-        }
-    }
-    
-    public static void removeBookingRestaurantsBooked(int phoneNumber, int id)
-    {
-        foreach (Booking booking in bookingsRestaurantsBooked)
-        {
-            if (booking.BookingOwner.Telephone == phoneNumber && booking.BookingType == BookingTypes.Restaurant && booking.BookingId == id)
-            {
-                bookingsRestaurantsBooked.Remove(booking);
-            }
-            else
-            {
-                Console.WriteLine("Phone number doesn't exist");
-            }
-        }
-    }
-    
-    public static void removeBookingServicesBooked(int phoneNumber, int id)
-    {
-        foreach (Booking booking in bookingsServicesBooked)
-        {
-            if (booking.BookingOwner.Telephone == phoneNumber && booking.BookingType == BookingTypes.Service && booking.BookingId == id)
-            {
-                bookingsServicesBooked.Remove(booking);
-            }
-            else
-            {
-                Console.WriteLine("Phone number doesn't exist");
-            }
-        }
-    }
-    
-    public static void removeBookingTicketsBooked(int phoneNumber, int id)
-    {
-        foreach (Booking booking in bookingsTicketsBooked)
-        {
-            if (booking.BookingOwner.Telephone == phoneNumber && booking.BookingType == BookingTypes.Ticket && booking.BookingId == id)
-            {
-                bookingsTicketsBooked.Remove(booking);
-            }
-            else
-            {
-                Console.WriteLine("Phone number doesn't exist");
-            }
-        }
     }
 
     public static void listOfCustomersPrint()
@@ -399,41 +492,6 @@ public class BookingMethods
         foreach (Booking booking in bookingsTickets)
         {
             booking.printBookingDetails1();
-        }
-    }
-
-    public static void customerBookigs(int phoneNumber)
-    {
-        foreach (Booking booking in bookingsHotelsBooked)
-        {
-            if (booking.BookingOwner.Telephone == phoneNumber)
-            {
-                booking.printBookingDetails2();
-            }
-        }
-
-        foreach (Booking booking in bookingsRestaurantsBooked)
-        {
-            if (booking.BookingOwner.Telephone == phoneNumber)
-            {
-                booking.printBookingDetails2();
-            }
-        }
-
-        foreach (Booking booking in bookingsServicesBooked)
-        {
-            if (booking.BookingOwner.Telephone == phoneNumber)
-            {
-                booking.printBookingDetails2();
-            }
-        }
-
-        foreach (Booking booking in bookingsTicketsBooked)
-        {
-            if (booking.BookingOwner.Telephone == phoneNumber)
-            {
-                booking.printBookingDetails2();
-            }
         }
     }
 
