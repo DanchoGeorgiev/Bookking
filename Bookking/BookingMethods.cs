@@ -383,16 +383,16 @@ public class BookingMethods
     {
         foreach (Booking hotel in bookingsHotelsBooked)
         {
-            if (hotel.BookingId == bookingId && hotel.BookingDate.StartDate == startDate && hotel.BookingDate.EndDate == startDate && hotel.BookingDate.Month == month && hotel.BookingOwner.Telephone == phoneNumber)
+            if (hotel.BookingId == bookingId && hotel.BookingDate.StartDate == startDate && hotel.BookingDate.EndDate == endDate && hotel.BookingDate.Month == month && hotel.BookingOwner.Telephone == phoneNumber)
             {
                 bookingsHotelsBooked.Remove(hotel);
                 break;
             }
         }
         
-        /*foreach (Booking restaurant in bookingsRestaurantsBooked)
+        foreach (Booking restaurant in bookingsRestaurantsBooked)
         {
-            if (restaurant.BookingId == bookingId && restaurant.BookingDate == date && restaurant.BookingOwner.Telephone == phoneNumber)
+            if (restaurant.BookingId == bookingId && restaurant.BookingDate.StartDate == startDate && restaurant.BookingDate.EndDate == endDate && restaurant.BookingDate.Month == month && restaurant.BookingOwner.Telephone == phoneNumber)
             {
                 bookingsRestaurantsBooked.Remove(restaurant);
                 break;
@@ -401,7 +401,7 @@ public class BookingMethods
         
         foreach (Booking service in bookingsServicesBooked)
         {
-            if (service.BookingId == bookingId && service.BookingDate == date && service.BookingOwner.Telephone == phoneNumber)
+            if (service.BookingId == bookingId && service.BookingDate.StartDate == startDate && service.BookingDate.EndDate == endDate && service.BookingDate.Month == month && service.BookingOwner.Telephone == phoneNumber)
             {
                 bookingsServicesBooked.Remove(service);
                 break;
@@ -410,12 +410,12 @@ public class BookingMethods
         
         foreach (Booking ticket in bookingsHotelsBooked)
         {
-            if (ticket.BookingId == bookingId && ticket.BookingDate == date && ticket.BookingOwner.Telephone == phoneNumber)
+            if (ticket.BookingId == bookingId && ticket.BookingDate.StartDate == startDate && ticket.BookingDate.EndDate == endDate && ticket.BookingDate.Month == month && ticket.BookingOwner.Telephone == phoneNumber)
             {
                 bookingsTicketsBooked.Remove(ticket);
                 break;
             }
-        }*/
+        }
     }
     
     public static Booking createBooking1(int bookingId)
